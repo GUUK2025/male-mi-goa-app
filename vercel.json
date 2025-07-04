@@ -21,35 +21,3 @@
     }
   ]
 }
-
-Explanation:
-"version": 2: Specifies the Vercel configuration file version.
-
-"builds": This array tells Vercel how to build different parts of your project.
-
-The first object { "src": "index.html", "use": "@vercel/static-build" } ensures your index.html and other static assets (like your logo) are built as a static site.
-
-The second object { "src": "api/**/*.js", "use": "@vercel/node" } tells Vercel to treat any .js file within your api directory (and its subdirectories) as a Node.js serverless function.
-
-"routes": This array defines how incoming requests are handled and routed.
-
-The first route { "src": "/api/(.*)", "dest": "/api/$1" } explicitly routes any request starting with /api/ to the corresponding serverless function in your api directory (e.g., /api/gemini will map to api/gemini.js).
-
-The second route { "src": "/(.*)", "dest": "/index.html" } is a fallback that rewrites all other requests to index.html. This is common for single-page applications to ensure that direct access to paths like /dashboard still loads your main app.
-
-How to use this file:
-Create a new file named vercel.json in the root directory of your male_mi_goa_app folder (the same level as index.html and the api folder).
-
-Copy and paste the JSON content above into this new vercel.json file.
-
-Save the file.
-
-Commit this new file to your Git repository and push the changes:
-
-git add vercel.json
-git commit -m "Add vercel.json configuration"
-git push origin main
-
-Trigger a new deployment on Vercel. Since you've pushed new changes to your Git repository, Vercel should automatically detect them and start a new deployment. If not, you can manually trigger a redeploy from your Vercel dashboard.
-
-This vercel.json file should help Vercel correctly identify and deploy your serverless function, resolving the 404 error for the API calls.
